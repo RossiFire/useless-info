@@ -1,6 +1,6 @@
 {
     "name": "useless-info",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "",
     "main": "src/index.js",
     "scripts": {
@@ -8,5 +8,16 @@
     },
     "author": "RossiFire",
     "license": "ISC",
-    "type": "module"
+    "type": "module",
+    "keywords": [
+      "JavaScript",
+      "Js",
+      "Types",
+      "UFO",
+      "useless-info",
+      "ufo"
+    ],
+    "repository": {
+      "url": "https://github.com/RossiFire/useless-info"
+    }
 }
