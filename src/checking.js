@@ -1,30 +1,31 @@
+import { typeMap } from "./static";
 
 
 /**
  * Check if the value is an Object
  * @param {*} value Your value
- * @returns boolean rapresenting if your value match the condition
+ * @returns boolean representing if your value match the condition
  */
 export const isObject = (value) =>{ return value && typeof(value) === 'object';}
 
 /**
  * Check if the value is a Function
  * @param {*} value Your value
- * @returns boolean rapresenting if your value match the condition
+ * @returns boolean representing if your value match the condition
  */
 export const isFunction = (value) =>{ return value && typeof(value) === 'function';}
 
 /**
  * Check if the value is a String
  * @param {*} value Your value
- * @returns boolean rapresenting if your value match the condition
+ * @returns boolean representing if your value match the condition
  */
 export const isString = (value) =>{ return value && typeof(value) === 'string';}
 
 /**
  * Check if the value is a single String Character
  * @param {*} value Your value
- * @returns boolean rapresenting if your value match the condition
+ * @returns boolean representing if your value match the condition
  */
 export const isChar = (value) =>{ return value && typeof(value) === 'string' && value.length === 1;}
 
@@ -35,28 +36,28 @@ export const isChar = (value) =>{ return value && typeof(value) === 'string' && 
  * 
  * use {@link isInteger()} instead 
  * @param {*} value Your value
- * @returns boolean rapresenting if your value match the condition
+ * @returns boolean representing if your value match the condition
  */
 export const isNumber = (value) =>{ return value && typeof(value) === 'number';}
 
 /**
  * Check if the value is an Integer number
  * @param {*} value Your value
- * @returns boolean rapresenting if your value match the condition
+ * @returns boolean representing if your value match the condition
  */
 export const isInteger = (value) =>{ return value && typeof(value) === 'number' && Number(value) === value && value % 1 !== 0;}
 
 /**
  * Check if the value is a float number
  * @param {*} value Your value
- * @returns boolean rapresenting if your value match the condition
+ * @returns boolean representing if your value match the condition
  */
 export const isFloat = (value) =>{ return value && typeof(value) === 'number' && Number(value) === value && value % 1 !== 0;}
 
 /**
  * Check if the value is an Array
  * @param {*} value Your array
- * @returns boolean rapresenting if your value match the condition
+ * @returns boolean representing if your value match the condition
  */
 export const isArray = (value) =>{ return value && isObject(value) && value.length > 0;}
 
@@ -64,7 +65,7 @@ export const isArray = (value) =>{ return value && isObject(value) && value.leng
 /**
  * Check if all the values in the array have the same type
  * @param {*} value Your array
- * @returns boolean rapresenting if your value match the condition
+ * @returns boolean representing if your value match the condition
  */
 export const isArrayConsistent = (array) =>{ 
     if(!isArray(array)){
@@ -73,8 +74,20 @@ export const isArrayConsistent = (array) =>{
     return !array.reduce((arr, val)=>{ arr.push(typeof(val)); return arr;}, []).some((val,i,arr)=> val != arr[0]);
 }
 
+/**
+ * Check if all the values in the array have the same type
+ * @param {*} value Your array
+ * @returns boolean representing if your value match the condition
+ */
+export const getConsistentArray = (array,typeYouWant) =>{ 
+    if(!isArray(array) || !isTypeExistingInMyTypes(typeYouWant)){
+       return [];
+    } 
+    return array.filter(x=> getCustomType(x) != typeYouWant)
+}
 
-export const getCustomType = (value) =>{
+
+const getCustomType = (value) =>{
     let type = typeof(value)
     switch (type) {
         case 'string':
@@ -82,7 +95,7 @@ export const getCustomType = (value) =>{
         case 'number':
             return isFloat(value) ? 'float' : 'number'
         case 'object':
-            return checking.isArray(value) ? 'array' : 'object'
+            return isArray(value) ? 'array' : 'object'
         case 'boolean':
             return  typeof(value)
         case 'function':
@@ -92,4 +105,26 @@ export const getCustomType = (value) =>{
     }
 }
 
+/**
+ * Clear an object and set default value to all properties based on their type
+ * @param {*} object Object you want to clear 
+ * @returns A clear Object
+ */
+export function clearObject(object){
+    if(!checking.isObject(object)){
+        return {}
+    }
+    let myObj = object
+    Object.keys(myObj).forEach(key=>{
+        let currentValue = myObj[key]
+        myObj[key] = isObject(currentValue) && !isArray(currentValue) ? clearObject(currentValue) : typeMap.get(checking.getCustomType(currentValue)).defaultValue;
+    })
+    return myObj;
+}
 
+
+
+
+const isTypeExistingInMyTypes = (userType) =>{
+    return userType == "string" || "number" || "float" || "boolean" || "object" || "function";
+}
