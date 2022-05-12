@@ -1,4 +1,4 @@
-import { typeMap } from "./static";
+import { typeMap } from "./static.js";
 
 
 /**
@@ -87,23 +87,6 @@ export const getConsistentArray = (array,typeYouWant) =>{
 }
 
 
-const getCustomType = (value) =>{
-    let type = typeof(value)
-    switch (type) {
-        case 'string':
-            return typeof(value)
-        case 'number':
-            return isFloat(value) ? 'float' : 'number'
-        case 'object':
-            return isArray(value) ? 'array' : 'object'
-        case 'boolean':
-            return  typeof(value)
-        case 'function':
-            return  typeof(value);
-        default:
-            return 'unknown value';
-    }
-}
 
 /**
  * Clear an object and set default value to all properties based on their type
@@ -123,8 +106,25 @@ export function clearObject(object){
 }
 
 
-
-
 const isTypeExistingInMyTypes = (userType) =>{
     return userType == "string" || "number" || "float" || "boolean" || "object" || "function";
 }
+
+
+ const getCustomType = (value) =>{
+     let type = typeof(value)
+     switch (type) {
+         case 'string':
+             return typeof(value)
+         case 'number':
+             return isFloat(value) ? 'float' : 'number'
+         case 'object':
+             return isArray(value) ? 'array' : 'object'
+         case 'boolean':
+             return  typeof(value)
+         case 'function':
+             return  typeof(value);
+         default:
+             return 'unknown value';
+     }
+ }

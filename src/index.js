@@ -1,8 +1,6 @@
 
-import * as checking from './checking.js';
 import { UFOTypes, UFOInformationObject } from './classes/InfoObject.js';
 import {typeMap} from './static.js'
-
 
 /**
  * Get an overview of your value.
@@ -64,3 +62,8 @@ function getCustomMapFromValue(value){
             return 'unknown value';
     }
 }
+
+
+
+export * from './checking.js';
+export * from'./static';
