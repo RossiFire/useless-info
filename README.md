@@ -10,12 +10,12 @@ This library offer:
 
 # How it works
 
-after you imported the package:
+After you have imported the package:
 ```js
-import * as UFO from "./useless-info";
+import * as UFO from "useless-info";
 ```
 
-You can call all the functions
+You can call the functions you need, for example:
 
 ```js
 let myArray = [objClassA,objClassB,objClassA,objClassA];
@@ -25,10 +25,14 @@ UFO.isArrayClassConsistent(myArray);
 let myArray = [34,{},'hello',4.6];
 UFO.getElementsFromArrayWithType(myArray,'float');
 // Expected result : [4.6]
-
 ```
 
-# Types Functions
+You can also import only some functions, for example:
+```js
+import { isArray, isFloat } from "useless-info";
+```
+
+# List of Functions
 
 This library provides also a bunch of functions to check your types and your classes. Here some of them:
 
