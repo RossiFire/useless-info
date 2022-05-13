@@ -47,3 +47,8 @@ This library provides also a bunch of functions to check your types and your cla
 |    getElementsFromArrayWithType  |   Check if all the values in the array have the same type  | array, elementsWithType | array  |
 |    isArrayClassConsistent  | Check if all the values in the array have the same class  | array, myClass (optional) | boolean  |
 |    getElementsFromArrayWithClass  |  Iterate your array and return only elements that matches your type |  array, objectWithClass | array |
+
+
+# Other
+
+No peerDependences are required. Feel free to share your advice to improve this library.
