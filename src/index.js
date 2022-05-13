@@ -2,7 +2,6 @@
 import { UfoInformationObject, UfoFormats } from './classes/InfoObject.js';
 import {typeMap} from './static.js'
 import {isObject, isFunction, isArray, isFloat} from './checking.js'
-import * as consi from './consistency.js'
 
 /**
  * Get an overview of your value.
@@ -10,9 +9,7 @@ import * as consi from './consistency.js'
  * @returns - 
  */
 export function getInfo(value){
-    if(!value){
-        return null
-    }
+    if(!value) return null;
     return new UfoInformationObject(
         value,
         getCustomMapFromValue(value),
@@ -38,53 +35,19 @@ export function getAllFormatFromValue(value){
 
 
 function getCustomMapFromValue(value){
-    let type = typeof(value)
+    let type = typeof(value);
     switch (type) {
-        case 'string':
-            return typeMap.get(type)
-        case 'number':
-            return isFloat(value) ? typeMap.get('float') : typeMap.get('number')
-        case 'object':
-            return isArray(value) ?  typeMap.get('array') : typeMap.get('object')
-        case 'boolean':
-            return  typeMap.get(type);
-        case 'function':
-            return typeMap.get(type);
-        default:
-            return 'unknown value';
+        case 'string': return typeMap.get(type);
+        case 'number': return isFloat(value) ? typeMap.get('float') : typeMap.get('number');
+        case 'object': return isArray(value) ?  typeMap.get('array') : typeMap.get('object');
+        case 'boolean': return  typeMap.get(type);
+        case 'function': return typeMap.get(type);
+        default: return 'unknown value';
     }
 }
 
 
-let ae = {
-    ciao:'5',
-    ae:5
-}
-class A {
-    constructor(gino,pino,vino){
-        this.gino = gino,
-        this.pino = pino,
-        this.vino = vino
-    }
-}
 
-let c = new UFOFormats(
-    5,   
-    5,
-    "5",
-    {key: 5},
-    function(){return 5},
-    [5]
-    [5]
-)
-
-let ho = new A(5,123,66)
-let hou = new A(5,123,66)
-
-let ee = [ho,c,hou,ae]
-
-
-console.log(consi.getConsistentClassArray(ee));
-
+// Export Statements
 export * from './checking.js';
 export * from './consistency.js';

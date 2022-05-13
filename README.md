@@ -1,12 +1,12 @@
 # U-FO (useless-info)
 
-Useful JavaScript library to manage easily types in  your application
+Useful JavaScript library to manage easily types and classes in your application
 
 # What is it
 
 This library offer:
 *   Some informative functions about your values 
-*   A bundle of useful functions to check conditions
+*   A bundle of useful functions to check conditions and handle consistency.
 
 # How it works
 
