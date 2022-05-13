@@ -32,7 +32,7 @@ UFO.getElementsFromArrayWithType(myArray,'float');
 
 This library provides also a bunch of functions to check your types and your classes. Here some of them:
 
-| Function | Description | Properties | Return |
+| Functions | Description | Properties | Return |
 |----------|-------------|----------|--------|
 |    isObject     |   Check whatever is an object          |    value      |   boolean     |
 |    isFunction   |   Check whatever is a function          |    value      |   boolean     
