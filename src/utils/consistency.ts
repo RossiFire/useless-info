@@ -1,4 +1,4 @@
-
+import { getCustomType } from '../index'
 import { isArray, isFloat, isString} from './checking.js';
 
 /**
@@ -7,9 +7,9 @@ import { isArray, isFloat, isString} from './checking.js';
  * @param {string} type - Optional. If provided, check if all items in your array have the same type 
  * @returns boolean representing if your value match the condition
  */
- export const isArrayTypeConsistent = (array,type = null) =>{ 
+ export const isArrayTypeConsistent = (array: any[],type: string | null = null) =>{ 
     if(!isArray(array)) return false;
-    return !array.reduce((arr, val)=>{ arr.push(getCustomType(val)); return arr;}, []).some((val,i,arr)=> val != (type ? type : arr[0]));
+    return !array.reduce((arr, val)=>{ arr.push(getCustomType(val)); return arr;}, []).some((val: any,i: number,arr: any[])=> val != (type ? type : arr[0]));
 }
 
 /**
@@ -18,7 +18,7 @@ import { isArray, isFloat, isString} from './checking.js';
  * @param {string} typeYouWantToHave - Your type. If null or not provided, unmodified array is returned
  * @returns filtered array
  */
-export const getElementsFromArrayWithType = (array,elementsWithType) =>{ 
+export const getElementsFromArrayWithType = (array: any[],elementsWithType: string) =>{ 
     if(!isArray(array) || !isTypeExistingInMyTypes(elementsWithType)) return [];
     if(!elementsWithType) return array;
     return array.filter(x=> getCustomType(x) == elementsWithType)
@@ -35,9 +35,9 @@ export const getElementsFromArrayWithType = (array,elementsWithType) =>{
  * @param {string} type - Optional. If provided, check if all items in your array have the same type. This method is Case Sensitive about this value
  * @returns boolean representing if your value match the condition
  */
-export const isArrayClassConsistent = (array, myClass = null) =>{
+export const isArrayClassConsistent = (array: any[], myClass: any = null) =>{
     if(!isArray(array) || !isArrayTypeConsistent(array,'object'))return false;
-    return !array.reduce((arr, val)=>{ arr.push(val.constructor.name); return arr;}, []).some((val,i,arr)=> val != (myClass ? isString(myClass) ? myClass : myClass.name : arr[0]));
+    return !array.reduce((arr: any[], val: any)=>{ arr.push(val.constructor.name); return arr;}, []).some((val: any,i: number,arr: any[])=> val != (myClass ? isString(myClass) ? myClass : myClass.name : arr[0]));
 }
 
 
@@ -47,7 +47,7 @@ export const isArrayClassConsistent = (array, myClass = null) =>{
  * @param {string | class} objectWithClass - Your class or class name. If not provided, unmodified array is returned. This method is Case Sensitive about this value
  * @returns filtered array
  */
- export const getElementsFromArrayWithClass = (array,objectWithClass) =>{ 
+ export const getElementsFromArrayWithClass = (array: any[],objectWithClass: any) =>{ 
     if(!isArray(array) || !isArrayTypeConsistent(array,'object')) return [];
     let className = isString(objectWithClass) ?  objectWithClass : objectWithClass.name
     if(!className) return array;
@@ -58,17 +58,4 @@ export const isArrayClassConsistent = (array, myClass = null) =>{
 
 
 
-const isTypeExistingInMyTypes = (userType) =>{ return ["string", "number", "float", "boolean", "object","function"].find(x=> x == userType) !== undefined}
-
-
- const getCustomType = (value) =>{
-     let type = typeof(value)
-     switch (type) {
-         case 'string': return typeof(value);
-         case 'number': return isFloat(value) ? 'float' : 'number';
-         case 'object': return isArray(value) ? 'array' : 'object';
-         case 'boolean': return  typeof(value);
-         case 'function': return typeof(value);
-         default: return 'unknown value';
-     }
- }
+const isTypeExistingInMyTypes = (userType: any) =>{ return ["string", "number", "float", "boolean", "object","function"].find(x=> x == userType) !== undefined}
