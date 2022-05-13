@@ -1,4 +1,4 @@
-# U-FO
+# U-FO (useless-info)
 
 Useful JavaScript library to manage easily types in  your application
 
@@ -10,44 +10,27 @@ This library offer:
 
 # How it works
 
-after you imported with:
+after you imported the package:
 ```js
 import * as UFO from "./useless-info";
 ```
 
-You can invoke the main function
+You can call all the functions
 
 ```js
-UFO.getInfo('exampleString');
-```
+let myArray = [objClassA,objClassB,objClassA,objClassA];
+UFO.isArrayClassConsistent(myArray);
+// Expected result : false
 
-This will return an object with some not really useful information:
+let myArray = [34,{},'hello',4.6];
+UFO.getElementsFromArrayWithType(myArray,'float');
+// Expected result : [4.6]
 
-```js
-{
-  value: 5,
-  type: 'number',
-  description: 'A number value',     
-  format: {
-    integer: 5,
-    float: 5,
-    string: '5',
-    object: { key: 5 },
-    function: [Function (anonymous)],
-    char: [ '5' ]
-  },
-  mostUsedFunction: [
-    [Function (anonymous)],
-    [Function (anonymous)],
-    [Function (anonymous)]
-  ],
-  funFact: '-'
-}
 ```
 
 # Types Functions
 
-This library provides also a bunch of functions to check your types. Actually is present:
+This library provides also a bunch of functions to check your types and your classes. Here some of them:
 
 | Function | Description | Properties | Return |
 |----------|-------------|----------|--------|
@@ -59,6 +42,8 @@ This library provides also a bunch of functions to check your types. Actually is
 |    isInteger      | Check whatever is an integer number  |   value      |    boolean      |
 |    isFloat      |   Check whatever is a float          |    value      |   boolean     |
 |    isArray      |   Check whatever is an array          |    value      |    boolean    |
-|    isArrayConsistent      |   Check if all values in your array have the same type          |    array      |   boolean     |
-|    getConsistentArray      |  remove all values from an array based on type you want          |    array, typeYouWant      |    array    |
-|    clearObject      |    Clear an object removing all values and setting their default values         |     object     |    object    |
+|    clearObject      |    Clear an object removing all values and setting their default values   |  object  |  object  |
+|    isArrayTypeConsistent  |   Check if all the values in the array have the same type  | array, type (optional)  | boolean  |
+|    getElementsFromArrayWithType  |   Check if all the values in the array have the same type  | array, elementsWithType | array  |
+|    isArrayClassConsistent  | Check if all the values in the array have the same class  | array, myClass (optional) | boolean  |
+|    getElementsFromArrayWithClass  |  Iterate your array and return only elements that matches your type |  array, objectWithClass | array |

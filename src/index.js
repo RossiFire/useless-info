@@ -1,6 +1,8 @@
 
-import { UFOTypes, UFOInformationObject } from './classes/InfoObject.js';
+import { UfoInformationObject, UfoFormats } from './classes/InfoObject.js';
 import {typeMap} from './static.js'
+import {isObject, isFunction, isArray, isFloat} from './checking.js'
+import * as consi from './consistency.js'
 
 /**
  * Get an overview of your value.
@@ -11,38 +13,28 @@ export function getInfo(value){
     if(!value){
         return null
     }
-    return new UFOInformationObject(
+    return new UfoInformationObject(
         value,
-        typeof(value),
+        getCustomMapFromValue(value),
         getCustomMapFromValue(value).description,
         getAllFormatFromValue(value),
         getCustomMapFromValue(value).functions,
-        getCustomFunFact(value)
     )
 }
 
 
 export function getAllFormatFromValue(value){
-    return new UFOTypes(
+    return new UfoFormats(
         parseInt(value) === NaN ? 0 : parseInt(value),
         parseFloat(value) === NaN ? 0 : parseFloat(value),
         JSON.stringify(value) || '-',
-        checking.isObject(value) ? value : {key: value},
-        checking.isFunction(value) ? value : function(){return value},
-        JSON.stringify(value) ? JSON.stringify(value).replace(`"`,"").match(/.{1,1}/g) : []
+        isObject(value) ? value : {key: value},
+        isFunction(value) ? value : function(){return value},
+        JSON.stringify(value) ? JSON.stringify(value).replace(`"`,"").match(/.{1,1}/g) : [],
+        [value]
     )
 }
 
-
-
-
-function getCustomFunFact(value){
-    let type = checking.getCustomType(value);
-    if(type === 'string'){
-        return value == "number" ? 'I told you!' : "if you call this function passing 'number', it will be anyway a string"
-    }
-    return typeMap.get(type).funFact || '-'
-}
 
 
 function getCustomMapFromValue(value){
@@ -51,9 +43,9 @@ function getCustomMapFromValue(value){
         case 'string':
             return typeMap.get(type)
         case 'number':
-            return checking.isFloat(value) ? typeMap.get('float') : typeMap.get('number')
+            return isFloat(value) ? typeMap.get('float') : typeMap.get('number')
         case 'object':
-            return checking.isArray(value) ?  typeMap.get('array') : typeMap.get('object')
+            return isArray(value) ?  typeMap.get('array') : typeMap.get('object')
         case 'boolean':
             return  typeMap.get(type);
         case 'function':
@@ -64,6 +56,35 @@ function getCustomMapFromValue(value){
 }
 
 
+let ae = {
+    ciao:'5',
+    ae:5
+}
+class A {
+    constructor(gino,pino,vino){
+        this.gino = gino,
+        this.pino = pino,
+        this.vino = vino
+    }
+}
+
+let c = new UFOFormats(
+    5,   
+    5,
+    "5",
+    {key: 5},
+    function(){return 5},
+    [5]
+    [5]
+)
+
+let ho = new A(5,123,66)
+let hou = new A(5,123,66)
+
+let ee = [ho,c,hou,ae]
+
+
+console.log(consi.getConsistentClassArray(ee));
 
 export * from './checking.js';
-export * from'./static';
+export * from './consistency.js';

@@ -10,7 +10,6 @@ export const typeMap = new Map([
             (string)=>{return string.replace()},
             (string)=>{return string.charAt(0)}
         ],
-        funFact: "",
         defaultValue: ''
     }],
     ['number',{
@@ -21,7 +20,6 @@ export const typeMap = new Map([
             (number)=>{return number.valueOf()},
         ],
         defaultValue: 0,
-        funFact: 'JavaScript can represent numbers between -(2^53 - 1) and 2^53 - 1'
     }],
     ['float',{
         description: "numbers but not really numbers. In one word: float",
@@ -30,7 +28,6 @@ export const typeMap = new Map([
             (number)=>{return number.toFixed()},
             (number)=>{return number.valueOf()},
         ],
-        funFact: "float numbers are quite funny, because in JavaScript they don't exist. But i wanted to give them the right credit",
         defaultValue: 0
     }],
     ['boolean',{
@@ -39,7 +36,6 @@ export const typeMap = new Map([
             (boolean)=>{return boolean.valueOf()},
         ],
         defaultValue: false,
-        funFact: "I like boolean because it's simple to use, don't you think?"
     }],
     ['object',{
         description: 'An object is a collection of key-value',
@@ -49,7 +45,6 @@ export const typeMap = new Map([
             (object)=>{return object.propertyIsEnumerable()},
         ],
         defaultValue: {},
-        funFact: "Repeat with me all together: an object is an instance of a class"
     }],
     ['function',{
         description: 'since ES6, functions can be declared also as lambda functions',
@@ -58,7 +53,6 @@ export const typeMap = new Map([
             (func)=>{return func.bind()}
         ],
         defaultValue: undefined,
-        funFact: "What's the difference between function and method?"
     }],
     ['array',{
         description: 'a collection of values, with some useful methods to',
@@ -71,7 +65,5 @@ export const typeMap = new Map([
             (array)=>{return array.pop()},
         ],
         defaultValue: [],
-        funFact: "In JavaScript arrays are considered objects"
     }],
 ])
-

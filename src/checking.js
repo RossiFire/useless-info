@@ -2,13 +2,6 @@ import { typeMap } from "./static.js";
 
 
 /**
- * Check if the value is an Object
- * @param {*} value Your value
- * @returns boolean representing if your value match the condition
- */
-export const isObject = (value) =>{ return value && typeof(value) === 'object';}
-
-/**
  * Check if the value is a Function
  * @param {*} value Your value
  * @returns boolean representing if your value match the condition
@@ -55,36 +48,19 @@ export const isInteger = (value) =>{ return value && typeof(value) === 'number' 
 export const isFloat = (value) =>{ return value && typeof(value) === 'number' && Number(value) === value && value % 1 !== 0;}
 
 /**
+ * Check if the value is an Object
+ * @param {*} value Your value
+ * @returns boolean representing if your value match the condition
+ */
+ export const isObject = (value) =>{ return value && typeof(value) === 'object' && value.length == undefined;}
+
+
+/**
  * Check if the value is an Array
  * @param {*} value Your array
  * @returns boolean representing if your value match the condition
  */
-export const isArray = (value) =>{ return value && isObject(value) && value.length > 0;}
-
-
-/**
- * Check if all the values in the array have the same type
- * @param {*} value Your array
- * @returns boolean representing if your value match the condition
- */
-export const isArrayConsistent = (array) =>{ 
-    if(!isArray(array)){
-       return false;
-    } 
-    return !array.reduce((arr, val)=>{ arr.push(typeof(val)); return arr;}, []).some((val,i,arr)=> val != arr[0]);
-}
-
-/**
- * Check if all the values in the array have the same type
- * @param {*} value Your array
- * @returns boolean representing if your value match the condition
- */
-export const getConsistentArray = (array,typeYouWant) =>{ 
-    if(!isArray(array) || !isTypeExistingInMyTypes(typeYouWant)){
-       return [];
-    } 
-    return array.filter(x=> getCustomType(x) != typeYouWant)
-}
+export const isArray = (value) =>{ return value && typeof(value) === 'object' && (value.length && value.length > 0);}
 
 
 
@@ -104,27 +80,3 @@ export function clearObject(object){
     })
     return myObj;
 }
-
-
-const isTypeExistingInMyTypes = (userType) =>{
-    return userType == "string" || "number" || "float" || "boolean" || "object" || "function";
-}
-
-
- const getCustomType = (value) =>{
-     let type = typeof(value)
-     switch (type) {
-         case 'string':
-             return typeof(value)
-         case 'number':
-             return isFloat(value) ? 'float' : 'number'
-         case 'object':
-             return isArray(value) ? 'array' : 'object'
-         case 'boolean':
-             return  typeof(value)
-         case 'function':
-             return  typeof(value);
-         default:
-             return 'unknown value';
-     }
- }
